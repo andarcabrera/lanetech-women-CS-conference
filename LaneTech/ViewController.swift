@@ -10,16 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    var currentImagePosition = 0
+    
+    let images = ["ghopper1.jpeg", "ghopper2.jpeg", "ghopper3.jpeg", "ghopper4.jpeg"]
+    
+    func getNextImage() -> String {
+        currentImagePosition = self.currentImagePosition + 1
+        if (currentImagePosition == images.count - 1) {
+            self.currentImagePosition = 0
+        }
+        return images[currentImagePosition]
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBOutlet weak var hopperImage: UIImageView!
+    
+    
+    @IBAction func changeImage(_ sender: AnyObject) {
+        hopperImage.image=UIImage(named: getNextImage())
     }
-
-
+    
+    
+    @IBAction func moreInfo(_ sender: AnyObject) {
+        if let url = URL(string: "https://www.hackingwithswift.com") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
 }
 
